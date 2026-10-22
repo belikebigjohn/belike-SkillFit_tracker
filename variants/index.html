@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Форма роста — три варианта главной</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./assets/fonts.css" />
+    <link rel="stylesheet" href="./assets/tokens.css" />
+    <link rel="stylesheet" href="./assets/shell.css" />
+    <link rel="stylesheet" href="./assets/components.css" />
+    <link rel="stylesheet" href="./assets/v1-pult.css" />
+    <link rel="stylesheet" href="./assets/v2-vitrina.css" />
+    <link rel="stylesheet" href="./assets/v3-lenta.css" />
+    <link rel="stylesheet" href="./assets/picker.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="rail">
+        <a class="brand" href="#">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 19 19 5" /><path d="M9 5h10v10" />
+            </svg>
+          </span>
+          <span class="brand-text">Форма<br />роста</span>
+        </a>
+
+        <nav class="rail-nav" aria-label="Основная навигация">
+          <a class="nav-link is-active" href="#" aria-current="page">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10.4 9-7 9 7"/><path d="M5.5 9.5V21h13V9.5"/><path d="M10 21v-6h4v6"/></svg>
+            <span>Главная</span>
+          </a>
+          <a class="nav-link" href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6.5 6.5 11 11"/><path d="m21 21-1-1"/><path d="m3 3 1 1"/><path d="m18 22 4-4"/><path d="m2 6 4-4"/><path d="m3 10 7-7"/><path d="m14 21 7-7"/></svg>
+            <span>Тренировки</span>
+            <span class="count">34</span>
+          </a>
+          <a class="nav-link" href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            <span>Упражнения</span>
+          </a>
+          <a class="nav-link" href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3"/><path d="M7 5H4v2a3 3 0 0 0 3 3"/></svg>
+            <span>Рейтинг</span>
+          </a>
+          <a class="nav-link" href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg>
+            <span>Профиль</span>
+          </a>
+        </nav>
+
+        <div class="rail-foot">
+          <a class="streak-card" href="#">
+            <div class="streak-top">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+              <span>12 дней</span>
+              <span>рекорд</span>
+            </div>
+            <div class="streak-days" aria-hidden="true">
+              <i class="is-on"></i><i class="is-on"></i><i class="is-on"></i><i class="is-on"></i><i class="is-on"></i><i class="is-on"></i><i class="is-now"></i>
+            </div>
+          </a>
+          <a class="user-chip" href="#">
+            <span class="avatar avatar--lg"><span class="visually-hidden">Максим Орлов</span>МО</span>
+            <span class="user-meta"><strong>Максим Орлов</strong><span>Набор массы</span></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </a>
+        </div>
+      </aside>
+
+      <div class="workspace">
+        <header class="topbar">
+          <span class="topbar-date">Четверг, 22 октября</span>
+          <div class="topbar-actions">
+            <button class="search-pill" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+              <span>Найти упражнение</span>
+              <kbd>⌘K</kbd>
+            </button>
+            <button class="icon-btn" type="button" aria-label="Уведомления">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+              <span class="dot"></span>
+            </button>
+            <button class="btn btn--accent" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+              <span>Новая тренировка</span>
+            </button>
+          </div>
+        </header>
+
+        <main class="content" id="stage"></main>
+      </div>
+    </div>
+
+    <nav class="tabbar" aria-label="Мобильная навигация">
+      <a class="is-active" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10.4 9-7 9 7"/><path d="M5.5 9.5V21h13V9.5"/><path d="M10 21v-6h4v6"/></svg>
+        Главная
+      </a>
+      <a href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6.5 6.5 11 11"/><path d="m21 21-1-1"/><path d="m3 3 1 1"/><path d="m18 22 4-4"/><path d="m2 6 4-4"/><path d="m3 10 7-7"/><path d="m14 21 7-7"/></svg>
+        Тренировки
+      </a>
+      <a href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        Поиск
+      </a>
+      <a href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3"/><path d="M7 5H4v2a3 3 0 0 0 3 3"/></svg>
+        Рейтинг
+      </a>
+      <a href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg>
+        Профиль
+      </a>
+    </nav>
+
+    <nav class="variant-picker" aria-label="Варианты главной" id="variant-picker">
+      <div class="variant-picker-group" role="group" aria-labelledby="variants-structure">
+        <span class="variant-picker-heading" id="variants-structure">
+          <svg aria-hidden="true" viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v4a3 3 0 0 0 3 3h7" /><path d="m10 7 3 3-3 3" /></svg>
+          Структура
+        </span>
+        <button type="button" data-variant="pult" aria-pressed="true">
+          <span>Пульт</span>
+          <em>плотная сетка</em>
+        </button>
+        <button type="button" data-variant="vitrina" aria-pressed="false">
+          <span>Витрина</span>
+          <em>крупная цифра</em>
+        </button>
+        <button type="button" data-variant="lenta" aria-pressed="false">
+          <span>Лента</span>
+          <em>хронология</em>
+        </button>
+      </div>
+      <p class="variant-picker-hint">← → переключить · H скрыть</p>
+    </nav>
+
+    <div class="variant-picker-select">
+      <select aria-label="Вариант главной">
+        <optgroup label="Структура">
+          <option value="pult">Пульт — плотная сетка</option>
+          <option value="vitrina">Витрина — крупная цифра</option>
+          <option value="lenta">Лента — хронология</option>
+        </optgroup>
+      </select>
+      <svg aria-hidden="true" viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m4 6 4 4 4-4" /></svg>
+    </div>
+
+    <script type="module" src="./assets/app.js"></script>
+  </body>
+</html>

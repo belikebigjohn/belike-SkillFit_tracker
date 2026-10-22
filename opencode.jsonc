@@ -1,0 +1,5 @@
+{
+  "$schema": "https://opencode.ai/config.json"
+  // docs/decisions.md намеренно не подключён в instructions:
+  // файл читается по требованию, чтобы не занимать контекст каждый запрос.
+}

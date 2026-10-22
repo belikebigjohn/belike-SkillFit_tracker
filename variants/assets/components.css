@@ -1,0 +1,392 @@
+/* Shared pieces used by more than one variant */
+
+.icon-btn--sm {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+}
+
+.icon-btn--sm svg {
+  width: 16px;
+  height: 16px;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--muted);
+  transition: color 180ms var(--ease-out);
+}
+
+.link:hover {
+  color: var(--accent);
+}
+
+.link--wide {
+  width: 100%;
+  height: 42px;
+  justify-content: center;
+  margin-top: 14px;
+  border: 1px dashed var(--line);
+  border-radius: 13px;
+  color: var(--muted);
+}
+
+.link--wide:hover {
+  border-color: rgb(200 247 81 / 0.35);
+}
+
+.streak-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid rgb(200 247 81 / 0.2);
+  border-radius: var(--r-pill);
+  background: rgb(200 247 81 / 0.08);
+  color: var(--accent);
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.streak-badge svg {
+  width: 15px;
+  height: 15px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 7px;
+  border-radius: 6px;
+  background: rgb(255 255 255 / 0.07);
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.tag--accent {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.tabs {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgb(255 255 255 / 0.03);
+  flex: none;
+}
+
+.tabs button {
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out);
+}
+
+.tabs button:hover {
+  color: var(--fg);
+}
+
+.tabs button[aria-pressed='true'] {
+  background: rgb(255 255 255 / 0.1);
+  color: var(--fg);
+}
+
+/* ---------- ring ---------- */
+
+.ring {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+.ring svg {
+  position: absolute;
+  inset: 0;
+}
+
+.ring-track {
+  animation: ring-draw 1.1s var(--ease-out) both;
+}
+
+@keyframes ring-draw {
+  from {
+    stroke-dashoffset: var(--c);
+  }
+  to {
+    stroke-dashoffset: var(--t);
+  }
+}
+
+.ring-center {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+}
+
+.ring-value {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.ring-value small {
+  font-size: 12px;
+  color: var(--muted);
+  margin-left: 1px;
+  letter-spacing: 0;
+}
+
+.ring-sub {
+  font-size: 10.5px;
+  color: var(--muted-2);
+}
+
+/* ---------- donut ---------- */
+
+.donut {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+.donut svg {
+  overflow: visible;
+}
+
+.donut circle {
+  animation: donut-in 500ms var(--ease-out) both;
+}
+
+@keyframes donut-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.donut-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  pointer-events: none;
+}
+
+.donut-total {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.donut-cap {
+  font-size: 9.5px;
+  color: var(--muted-2);
+}
+
+/* ---------- chart ---------- */
+
+.chart {
+  padding: 6px 6px 0;
+}
+
+.area-chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.chart-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 1.2s var(--ease-out) 0.15s both;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.chart-dot {
+  opacity: 0;
+  animation: fade 300ms ease-out both;
+}
+
+.chart-pill {
+  opacity: 0;
+  animation: rise 320ms var(--ease-out) both;
+}
+
+.spark-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 1s var(--ease-out) 0.2s both;
+}
+
+.chart-labels {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 6px 20px 0;
+  font-size: 11px;
+  color: var(--muted-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.chart-foot {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.chart-foot > div {
+  padding: 12px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.chart-foot > div + div {
+  border-left: 1px solid var(--line);
+}
+
+.chart-foot span {
+  font-size: 11.5px;
+  color: var(--muted-2);
+}
+
+.chart-foot strong {
+  font-size: 13.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.is-up {
+  color: var(--accent-2);
+}
+
+/* ---------- leaderboard rows ---------- */
+
+.lb-list,
+.lb-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lb-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 8px 12px;
+}
+
+.lb-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 6px 10px;
+  border-radius: 12px;
+  transition: background-color 160ms var(--ease-out);
+}
+
+.lb-row:hover {
+  background: rgb(255 255 255 / 0.04);
+}
+
+.lb-row.is-me {
+  background: rgb(200 247 81 / 0.07);
+  box-shadow: inset 0 0 0 1px rgb(200 247 81 / 0.16);
+}
+
+.lb-rank {
+  width: 16px;
+  flex: none;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 11px;
+  color: var(--muted-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.lb-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  font-size: 13.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lb-name em {
+  flex: none;
+  font-style: normal;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgb(200 247 81 / 0.13);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.lb-value {
+  margin-left: auto;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- view swap ---------- */
+
+.view {
+  animation: fade 200ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .view {
+    animation: none;
+  }
+}
