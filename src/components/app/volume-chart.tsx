@@ -33,6 +33,12 @@ export default function VolumeChart({
     return Math.max(16, y - 12);
   }, [series]);
 
+  // percentage change over the period; a zero baseline has no meaningful
+  // growth at all (0 → 46 550 кг would be +Infinity), so show a dash instead
+  const first = series.values[0];
+  const last = series.values[series.values.length - 1];
+  const growth = first > 0 ? Math.round(((last - first) / first) * 100) : last > 0 ? null : 0;
+
   return (
     <section className="card rise rise-3">
       <div className="card-head">
@@ -72,8 +78,18 @@ export default function VolumeChart({
         </div>
         <div>
           <span>Рост за период</span>
-          <strong style={{ color: "var(--accent-2)" }}>
-            +{Math.round(((series.values[series.values.length - 1] - series.values[0]) / series.values[0]) * 100)}%
+          <strong
+            style={{
+              color:
+                growth === null || growth === 0
+                  ? "var(--muted)"
+                  : growth < 0
+                    ? "var(--danger)"
+                    : "var(--accent-2)",
+            }}
+            title={growth === null ? "Нет базы для сравнения: в начале периода объём был нулевым" : undefined}
+          >
+            {growth === null ? "—" : `${growth > 0 ? "+" : ""}${formatNum(growth)}%`}
           </strong>
         </div>
       </div>
