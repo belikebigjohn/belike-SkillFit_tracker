@@ -56,7 +56,7 @@ export default function AuthShell({
           <span className="avatar">МО</span>
           <div className="user-meta">
             <strong>Максим Орлов</strong>
-            <span>4 место в рейтинге · цель «Набор массы»</span>
+            <span>1 место в рейтинге · цель «Набор массы»</span>
           </div>
         </div>
       </aside>

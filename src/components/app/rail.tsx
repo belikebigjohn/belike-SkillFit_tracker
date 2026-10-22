@@ -5,18 +5,19 @@ import { usePathname } from "next/navigation";
 import { ChevronDown, Flame } from "lucide-react";
 
 import { isActive, NAV_ITEMS } from "@/components/app/nav-items";
+import { DAYS_FORMS, pluralRu } from "@/lib/plural";
+import type { User } from "@/lib/types";
 
-const WEEK_DAYS = [
-  { label: "Пн", on: true },
-  { label: "Вт", on: true },
-  { label: "Ср", on: true },
-  { label: "Чт", on: true },
-  { label: "Пт", on: false },
-  { label: "Сб", on: false },
-  { label: "Вс", on: false },
-];
+const WEEK_LABELS = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
-export default function Rail() {
+interface RailProps {
+  me: User;
+  avatar: { from: string; to: string };
+  /** Mon–Sun of the current week: training days for the streak dots. */
+  week: boolean[];
+}
+
+export default function Rail({ me, avatar, week }: RailProps) {
   const pathname = usePathname();
 
   return (
@@ -45,31 +46,42 @@ export default function Rail() {
             >
               <Icon size={18} strokeWidth={active ? 2.2 : 1.8} />
               <span>{item.label}</span>
-              {item.count && <span className="count">{item.count}</span>}
+              {item.href === "/workouts" && me.workouts > 0 && (
+                <span className="count">{me.workouts}</span>
+              )}
             </Link>
           );
         })}
       </nav>
 
       <div className="rail-foot">
-        <div className="streak-card">
-          <div className="streak-top">
-            <Flame size={16} strokeWidth={2.2} style={{ color: "var(--accent)" }} />
-            <span>12 дней</span>
-            <span>серия</span>
+        {me.streak > 0 && (
+          <div className="streak-card">
+            <div className="streak-top">
+              <Flame size={16} strokeWidth={2.2} style={{ color: "var(--accent)" }} />
+              <span>
+                {me.streak} {pluralRu(me.streak, DAYS_FORMS)}
+              </span>
+              <span>серия</span>
+            </div>
+            <div className="streak-days" aria-hidden>
+              {WEEK_LABELS.map((label, i) => (
+                <i key={label} className={week[i] ? "is-on" : ""} />
+              ))}
+            </div>
           </div>
-          <div className="streak-days" aria-hidden>
-            {WEEK_DAYS.map((d) => (
-              <i key={d.label} className={d.on ? "is-on" : ""} />
-            ))}
-          </div>
-        </div>
+        )}
 
         <Link href="/profile" className="user-chip" aria-label="Открыть профиль">
-          <span className="avatar">МО</span>
+          <span
+            className="avatar"
+            style={{ background: `linear-gradient(140deg, ${avatar.from}, ${avatar.to})` }}
+          >
+            {me.initials}
+          </span>
           <span className="user-meta">
-            <strong>Максим Орлов</strong>
-            <span>Набор массы</span>
+            <strong>{me.name}</strong>
+            <span>{me.goal}</span>
           </span>
           <ChevronDown size={15} style={{ marginLeft: "auto", color: "var(--muted-2)", flexShrink: 0 }} />
         </Link>

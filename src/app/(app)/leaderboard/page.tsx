@@ -6,7 +6,10 @@ import { Crown, RefreshCw } from "lucide-react";
 import Segmented from "@/components/app/segmented";
 import { api, errorMessage } from "@/lib/api-client";
 import { formatNum } from "@/lib/charts";
+import { DAYS_FORMS, WORKOUTS_FORMS, pluralRu } from "@/lib/plural";
 import type { LeaderMetric, LeaderRow } from "@/lib/types";
+
+const PARTICIPANTS_FORMS: [string, string, string] = ["участник", "участника", "участников"];
 
 const METRICS: { value: LeaderMetric; label: string }[] = [
   { value: "points", label: "Очки" },
@@ -72,7 +75,7 @@ export default function LeaderboardPage() {
       <div className="page-head">
         <div>
           <span className="eyebrow">
-            Сообщество{rows ? ` · ${rows.length} участников` : ""}
+            Сообщество{rows ? ` · ${rows.length} ${pluralRu(rows.length, PARTICIPANTS_FORMS)}` : ""}
           </span>
           <h1 className="page-title">Рейтинг</h1>
         </div>
@@ -145,7 +148,8 @@ export default function LeaderboardPage() {
                     <div style={{ minWidth: 0 }}>
                       <div className="lb-name">{r.name}</div>
                       <div className="lb-sub">
-                        {r.workouts} тренировок · серия {r.streak} дн.
+                        {r.workouts} {pluralRu(r.workouts, WORKOUTS_FORMS)} · серия {r.streak}{" "}
+                        {pluralRu(r.streak, DAYS_FORMS)}
                       </div>
                     </div>
                     <span className="lb-value">{metricValue(r, metric)}</span>

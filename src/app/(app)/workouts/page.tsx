@@ -7,6 +7,7 @@ import { ChevronRight, Flame, Plus, RefreshCw } from "lucide-react";
 import NewWorkoutDialog from "@/components/app/new-workout-dialog";
 import { api, errorMessage } from "@/lib/api-client";
 import { formatNum } from "@/lib/charts";
+import { DAYS_FORMS, pluralRu } from "@/lib/plural";
 import type { Session, User } from "@/lib/types";
 
 export default function WorkoutsPage() {
@@ -125,7 +126,8 @@ export default function WorkoutsPage() {
         <div className="page-head__actions">
           {me !== null && me.streak > 0 && (
             <span className="chip">
-              <Flame size={13} style={{ color: "var(--accent)" }} /> серия {me.streak} дней
+              <Flame size={13} style={{ color: "var(--accent)" }} /> серия {me.streak}{" "}
+              {pluralRu(me.streak, DAYS_FORMS)}
             </span>
           )}
           <button

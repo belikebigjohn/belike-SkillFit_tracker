@@ -40,9 +40,19 @@ import type {
 /** Newly unlocked achievements returned by mutation endpoints (for toasts). */
 export type UnlockInfo = AchievementUnlock;
 
-/** Session check for the server guard: does the cookie's user still exist? */
-export function userExists(userId: string): boolean {
-  return !!getRaw().prepare("SELECT 1 FROM users WHERE id = ?").get(userId);
+/** Mon–Sun of the current week: did the user train on that day? (rail streak dots) */
+export function weekActivity(userId: string): boolean[] {
+  const monday = weekStartIso(isoToday());
+  const days = daySet(userId);
+  return Array.from({ length: 7 }, (_, i) => days.has(isoAddDays(monday, i)));
+}
+
+/** Avatar gradient stored on the user row (seed or registration). */
+export function userAvatarColors(userId: string): { from: string; to: string } {
+  const r = getRaw()
+    .prepare('SELECT avatar_from AS "from", avatar_to AS "to" FROM users WHERE id = ?')
+    .get(userId) as { from: string; to: string } | undefined;
+  return r ?? pickAvatar(userId);
 }
 
 /* ---------- RU date formatting ---------- */
