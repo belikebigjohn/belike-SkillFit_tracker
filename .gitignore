@@ -51,3 +51,9 @@ Thumbs.db
 
 # tooling artifacts
 .playwright-mcp/
+
+# local-only docs and task files
+/AGENTS.md
+/opencode.jsonc
+/ТЗ.docx
+/идеи.txt
