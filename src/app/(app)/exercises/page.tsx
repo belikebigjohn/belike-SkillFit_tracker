@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Plus, Search, Video } from "lucide-react";
-import { toast } from "sonner";
+import { useCallback, useEffect, useState } from "react";
+import { Plus, RefreshCw, Search, Video } from "lucide-react";
 
-import { api } from "@/lib/api-client";
+import AddToWorkoutDialog from "@/components/app/add-to-workout-dialog";
+import { api, errorMessage } from "@/lib/api-client";
 import { MUSCLE_GROUPS, type Exercise } from "@/lib/types";
 
 const FILTERS = ["Все", ...MUSCLE_GROUPS] as const;
@@ -13,23 +13,35 @@ export default function ExercisesPage() {
   const [query, setQuery] = useState("");
   const [muscle, setMuscle] = useState<string>("Все");
   const [items, setItems] = useState<Exercise[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [target, setTarget] = useState<Exercise | null>(null);
 
-  useEffect(() => {
+  const load = useCallback(() => {
     let alive = true;
+    setError(null);
     setItems(null);
-    api.getExercises(query, muscle).then((list) => {
-      if (alive) setItems(list);
-    });
+    api
+      .getExercises(query, muscle)
+      .then((list) => {
+        if (alive) setItems(list);
+      })
+      .catch((e) => {
+        if (alive) setError(errorMessage(e));
+      });
     return () => {
       alive = false;
     };
   }, [query, muscle]);
 
+  useEffect(load, [load]);
+
   return (
     <>
       <div className="page-head">
         <div>
-          <span className="eyebrow">Каталог · 19 упражнений</span>
+          <span className="eyebrow">
+            Каталог{items ? ` · ${items.length} упражнений` : ""}
+          </span>
           <h1 className="page-title">Упражнения</h1>
         </div>
       </div>
@@ -68,7 +80,16 @@ export default function ExercisesPage() {
         ))}
       </div>
 
-      {items === null ? (
+      {error ? (
+        <div className="card empty rise">
+          <h3>Каталог не загрузился</h3>
+          <p>{error}</p>
+          <button type="button" className="btn btn--ghost" onClick={load}>
+            <RefreshCw size={15} />
+            Повторить
+          </button>
+        </div>
+      ) : items === null ? (
         <div className="ex-grid">
           {[0, 1, 2, 3, 4, 5].map((i) => (
             <span key={i} className="skeleton" style={{ height: 210, borderRadius: 20 }} />
@@ -118,7 +139,7 @@ export default function ExercisesPage() {
                   type="button"
                   className="btn btn--accent"
                   style={{ height: 32, padding: "0 12px", fontSize: 12.5 }}
-                  onClick={() => toast.success(`«${e.name}» — добавление в тренировку после модуля B`)}
+                  onClick={() => setTarget(e)}
                 >
                   <Plus size={14} strokeWidth={2.6} />
                   Добавить
@@ -128,6 +149,8 @@ export default function ExercisesPage() {
           ))}
         </div>
       )}
+
+      <AddToWorkoutDialog exercise={target} onClose={() => setTarget(null)} />
     </>
   );
 }

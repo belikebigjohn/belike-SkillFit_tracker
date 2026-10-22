@@ -1339,6 +1339,27 @@ svg {
   font-size: 12.5px;
 }
 
+/* compact numeric input inside the sets table */
+.input--cell {
+  width: 74px;
+  height: 34px;
+  padding: 0 8px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  margin-left: auto;
+}
+
+.input--cell::-webkit-outer-spin-button,
+.input--cell::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input--cell[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
 /* forms & dialog */
 .field {
   display: flex;

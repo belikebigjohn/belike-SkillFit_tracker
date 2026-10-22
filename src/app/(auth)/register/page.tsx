@@ -7,6 +7,8 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 import AuthShell from "@/components/app/auth-shell";
+import { ApiError, api, errorMessage } from "@/lib/api-client";
+import { GOALS } from "@/lib/validators";
 
 const registerSchema = z.object({
   name: z.string().min(2, "Как к вам обращаться?"),
@@ -17,11 +19,13 @@ const registerSchema = z.object({
 export default function RegisterPage() {
   const router = useRouter();
   const [values, setValues] = useState({ name: "", email: "", password: "" });
-  const [goal, setGoal] = useState("Набор массы");
+  const [goal, setGoal] = useState<string>(GOALS[0]);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [busy, setBusy] = useState(false);
 
-  function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent) {
     e.preventDefault();
+    if (busy) return;
     const parsed = registerSchema.safeParse(values);
     if (!parsed.success) {
       const fields: Record<string, string> = {};
@@ -32,8 +36,19 @@ export default function RegisterPage() {
       return;
     }
     setErrors({});
-    toast.success("Аккаунт создан (демо-режим)");
-    router.push("/dashboard");
+    setBusy(true);
+    try {
+      const user = await api.register({ ...parsed.data, goal });
+      toast.success(`Аккаунт создан. Добро пожаловать, ${user.name.split(" ")[0]}`);
+      router.push("/dashboard");
+    } catch (err) {
+      setBusy(false);
+      if (err instanceof ApiError && err.fields) {
+        setErrors(err.fields);
+      } else {
+        toast.error(errorMessage(err));
+      }
+    }
   }
 
   return (
@@ -92,15 +107,13 @@ export default function RegisterPage() {
             value={goal}
             onChange={(e) => setGoal(e.target.value)}
           >
-            <option>Набор массы</option>
-            <option>Сила</option>
-            <option>Выносливость</option>
-            <option>Похудение</option>
-            <option>Здоровье</option>
+            {GOALS.map((g) => (
+              <option key={g}>{g}</option>
+            ))}
           </select>
         </div>
-        <button type="submit" className="btn btn--accent">
-          Начать путь
+        <button type="submit" className="btn btn--accent" disabled={busy}>
+          {busy ? "Создаём аккаунт…" : "Начать путь"}
         </button>
       </form>
     </AuthShell>

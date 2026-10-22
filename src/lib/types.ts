@@ -32,6 +32,10 @@ export interface WeekSummary {
   minutes: number;
   deltaPct: number;
   exercises: number;
+  /** change vs the previous week — used by dashboard KPI footers */
+  pointsDelta?: number;
+  workoutsDelta?: number;
+  streakDelta?: number;
 }
 
 export interface ChartSeries {
@@ -55,6 +59,8 @@ export interface Achievement {
   icon: string;
   date: string;
   unlocked: boolean;
+  /** ISO date of unlock, "" while locked — lets the topbar badge filter recent ones */
+  unlockedAt?: string;
   progress?: number;
   total?: number;
 }
@@ -112,6 +118,16 @@ export interface WorkoutItem {
   name: string;
   order: number;
   sets: WorkoutSet[];
+  /** cardio entries carry duration/distance instead of weighted sets */
+  durationSec?: number | null;
+  distanceM?: number | null;
+}
+
+/** Just-unlocked achievements returned by mutations for toasts. */
+export interface AchievementUnlock {
+  code: string;
+  title: string;
+  icon: string;
 }
 
 export interface WorkoutDetail {

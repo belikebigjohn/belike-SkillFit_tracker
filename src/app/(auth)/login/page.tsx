@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 import AuthShell from "@/components/app/auth-shell";
+import { ApiError, api, errorMessage } from "@/lib/api-client";
 
 const loginSchema = z.object({
   email: z.email("Введите корректный e-mail"),
@@ -17,9 +18,11 @@ export default function LoginPage() {
   const router = useRouter();
   const [values, setValues] = useState({ email: "demo@forma.ru", password: "demo1234" });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [busy, setBusy] = useState(false);
 
-  function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent) {
     e.preventDefault();
+    if (busy) return;
     const parsed = loginSchema.safeParse(values);
     if (!parsed.success) {
       const fields: Record<string, string> = {};
@@ -30,9 +33,19 @@ export default function LoginPage() {
       return;
     }
     setErrors({});
-    // Module B will set a real session cookie here; for now — demo entry.
-    toast.success("Демо-вход выполнен");
-    router.push("/dashboard");
+    setBusy(true);
+    try {
+      const user = await api.login(parsed.data);
+      toast.success(`С возвращением, ${user.name.split(" ")[0]}`);
+      router.push("/dashboard");
+    } catch (err) {
+      setBusy(false);
+      if (err instanceof ApiError && err.fields) {
+        setErrors(err.fields);
+      } else {
+        toast.error(errorMessage(err));
+      }
+    }
   }
 
   return (
@@ -71,8 +84,8 @@ export default function LoginPage() {
           />
           {errors.password && <span className="field-error">{errors.password}</span>}
         </div>
-        <button type="submit" className="btn btn--accent">
-          Войти в журнал
+        <button type="submit" className="btn btn--accent" disabled={busy}>
+          {busy ? "Входим…" : "Войти в журнал"}
         </button>
         <p style={{ fontSize: 12, color: "var(--muted-2)", textAlign: "center" }}>
           Демо-аккаунт уже заполнен: 4 недели тренировок и рейтинг

@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Bell, Plus, Search } from "lucide-react";
 import { toast } from "sonner";
 
 import NewWorkoutDialog from "@/components/app/new-workout-dialog";
+import { api } from "@/lib/api-client";
+import type { Achievement } from "@/lib/types";
 
 function todayLabel(): string {
   return new Intl.DateTimeFormat("ru-RU", {
@@ -15,8 +17,28 @@ function todayLabel(): string {
   }).format(new Date());
 }
 
+function daysAgo(iso: string): number {
+  return Math.floor((Date.now() - new Date(iso).getTime()) / 86_400_000);
+}
+
 export default function Topbar() {
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [recent, setRecent] = useState<Achievement[]>([]);
+
+  useEffect(() => {
+    let alive = true;
+    api
+      .getAchievements()
+      .then((items) => {
+        if (alive) setRecent(items.filter((a) => a.unlocked && daysAgo(a.unlockedAt ?? "") <= 7));
+      })
+      .catch(() => {
+        /* topbar badge is decoration; silent */
+      });
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   return (
     <header className="topbar">
@@ -33,10 +55,20 @@ export default function Topbar() {
           type="button"
           className="icon-btn"
           aria-label="Уведомления"
-          onClick={() => toast.info("Новых достижений: 1 — «Серия 7 дней»")}
+          onClick={() => {
+            if (recent.length === 0) {
+              toast.info("Новых достижений нет");
+            } else if (recent.length === 1) {
+              toast.success(`Новое достижение: «${recent[0].title}»`);
+            } else {
+              toast.success(
+                `Новых достижений: ${recent.length} — ${recent.map((a) => `«${a.title}»`).join(", ")}`,
+              );
+            }
+          }}
         >
           <Bell size={18} />
-          <span className="dot" />
+          {recent.length > 0 && <span className="dot" />}
         </button>
 
         <button

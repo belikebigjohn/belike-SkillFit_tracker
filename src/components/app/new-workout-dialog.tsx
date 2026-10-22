@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { X } from "lucide-react";
 import { toast } from "sonner";
 
+import { announceUnlocks } from "@/components/app/announce-unlocks";
+import { api, errorMessage } from "@/lib/api-client";
 import { MUSCLE_GROUPS } from "@/lib/types";
 
 export default function NewWorkoutDialog({
@@ -13,8 +16,10 @@ export default function NewWorkoutDialog({
   open: boolean;
   onClose: () => void;
 }) {
+  const router = useRouter();
   const [title, setTitle] = useState("");
   const [group, setGroup] = useState<string>(MUSCLE_GROUPS[0]);
+  const [busy, setBusy] = useState(false);
 
   // close on Escape — keyboard users need it
   useEffect(() => {
@@ -28,12 +33,24 @@ export default function NewWorkoutDialog({
 
   if (!open) return null;
 
-  function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent) {
     e.preventDefault();
-    const name = title.trim() || "Тренировка без названия";
-    toast.success(`Черновик «${name}» создан (демо)`);
-    setTitle("");
-    onClose();
+    if (busy) return;
+    setBusy(true);
+    try {
+      const created = await api.createWorkout({
+        title: title.trim() || "Тренировка без названия",
+        group,
+      });
+      announceUnlocks(created.unlocked);
+      toast.success("Черновик создан — добавьте упражнения");
+      setTitle("");
+      onClose();
+      router.push(`/workouts/${created.id}`);
+    } catch (err) {
+      toast.error(errorMessage(err));
+      setBusy(false);
+    }
   }
 
   return (
@@ -87,8 +104,8 @@ export default function NewWorkoutDialog({
             <button type="button" className="btn btn--ghost" onClick={onClose}>
               Отмена
             </button>
-            <button type="submit" className="btn btn--accent">
-              Создать
+            <button type="submit" className="btn btn--accent" disabled={busy}>
+              {busy ? "Создаём…" : "Создать"}
             </button>
           </div>
         </form>
