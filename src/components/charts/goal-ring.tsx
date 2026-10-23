@@ -37,7 +37,7 @@ export default function GoalRing({
           strokeDashoffset={c * (1 - clamped / 100)}
           transform={`rotate(-90 ${size / 2} ${size / 2})`}
           style={{
-            filter: "drop-shadow(0 0 6px rgb(200 247 81 / 0.45))",
+            filter: "drop-shadow(0 0 6px rgb(163 249 0 / 0.45))",
             transition: "stroke-dashoffset 700ms cubic-bezier(0.22, 1, 0.36, 1)",
           }}
         />

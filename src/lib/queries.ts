@@ -96,12 +96,12 @@ export function initials(name: string): string {
 
 /** Deterministic gradient for newly registered users. */
 const AVATAR_PAIRS: Array<[string, string]> = [
-  ["#c8f751", "#6ee7b7"],
-  ["#d9ff6e", "#4e7a5e"],
-  ["#6ee7b7", "#2f7d63"],
-  ["#ffc857", "#c8f751"],
-  ["#d9e8c7", "#8fb333"],
-  ["#a9e02c", "#3f6b58"],
+  ["#a3f900", "#64d2ff"],
+  ["#bf5af2", "#0a84ff"],
+  ["#0a84ff", "#64d2ff"],
+  ["#ff9f0a", "#ff375f"],
+  ["#64d2ff", "#a3f900"],
+  ["#ff375f", "#bf5af2"],
 ];
 
 export function pickAvatar(seed: string): { from: string; to: string } {
@@ -112,12 +112,12 @@ export function pickAvatar(seed: string): { from: string; to: string } {
 }
 
 const MUSCLE_COLORS: Record<string, string> = {
-  Ноги: "#c8f751",
-  Спина: "#6ee7b7",
-  Грудь: "#8fb33a",
-  Плечи: "#4e7a5e",
-  Руки: "#2f4038",
-  Кардио: "#ffc857",
+  Ноги: "#a3f900",
+  Спина: "#64d2ff",
+  Грудь: "#bf5af2",
+  Плечи: "#0a84ff",
+  Руки: "#ff375f",
+  Кардио: "#ff9f0a",
 };
 
 /* ---------- row loaders ---------- */
@@ -428,7 +428,6 @@ export function buildStats(userId: string): StatsView {
   const items = loadItems(userId);
   const byWorkout = itemsByWorkout(items);
   const pointsBy = loadPointsByWorkout(userId);
-  const days = new Set(workouts.map((w) => w.performedAt));
 
   const inRange = (day: string, from: string, to: string) => day >= from && day <= to;
   const weekAgg = (from: string, to: string) => {
@@ -437,6 +436,7 @@ export function buildStats(userId: string): StatsView {
     let count = 0;
     let minutes = 0;
     let exercises = 0;
+    let runM = 0;
     for (const w of workouts) {
       if (!inRange(w.performedAt, from, to)) continue;
       count += 1;
@@ -444,8 +444,11 @@ export function buildStats(userId: string): StatsView {
       minutes += w.minutes;
       points += pointsBy.get(w.id) ?? 0;
       exercises += byWorkout.get(w.id)?.length ?? 0;
+      for (const it of byWorkout.get(w.id) ?? []) {
+        if (it.exerciseId === "e-run") runM += it.distanceM ?? 0;
+      }
     }
-    return { volumeKg: Math.round(volumeKg), points, count, minutes, exercises };
+    return { volumeKg: Math.round(volumeKg), points, count, minutes, exercises, runM: Math.round(runM) };
   };
 
   const prevMonday = isoAddDays(monday, -7);
@@ -520,7 +523,7 @@ export function buildStats(userId: string): StatsView {
 
   /* sparklines over the same 8 weeks */
   const sparkPoints: number[] = [];
-  const sparkStreak: number[] = [];
+  const sparkRunKm: number[] = [];
   const sparkWorkouts: number[] = [];
   const sparkVolume: number[] = [];
   for (let k = 7; k >= 0; k--) {
@@ -529,16 +532,18 @@ export function buildStats(userId: string): StatsView {
     let p = 0;
     let c = 0;
     let v = 0;
-    const upTo: string[] = [];
+    let runM = 0;
     for (const w of workouts) {
-      if (w.performedAt <= we) upTo.push(w.performedAt);
       if (!inRange(w.performedAt, ws, we)) continue;
       c += 1;
       v += w.volumeKg;
       p += pointsBy.get(w.id) ?? 0;
+      for (const it of byWorkout.get(w.id) ?? []) {
+        if (it.exerciseId === "e-run") runM += it.distanceM ?? 0;
+      }
     }
     sparkPoints.push(p);
-    sparkStreak.push(bestStreak(upTo));
+    sparkRunKm.push(Math.round(runM / 100) / 10);
     sparkWorkouts.push(c);
     sparkVolume.push(Math.round(v / 1000));
   }
@@ -555,15 +560,15 @@ export function buildStats(userId: string): StatsView {
       minutes: week.minutes,
       deltaPct,
       exercises: week.exercises,
+      runM: week.runM,
       pointsDelta: week.points - prev.points,
       workoutsDelta: week.count - prev.count,
-      streakDelta: currentStreak(days, isoAddDays(monday, 6)) - bestStreak([...days].filter((d) => d < monday)),
     },
     charts: { weeks, months, year },
     muscles,
     sparklines: {
       points: sparkPoints,
-      streak: sparkStreak,
+      runKm: sparkRunKm,
       workouts: sparkWorkouts,
       volume: sparkVolume,
     },

@@ -18,12 +18,20 @@
   --fg: #f2f5f1;
   --muted: #98a29b;
   --muted-2: #7e8981;
-  --accent: #c8f751;
+  /* Apple Fitness palette: same green / cyan / purple / blue / red */
+  --viz-green: #a3f900;
+  --viz-cyan: #64d2ff;
+  --viz-purple: #bf5af2;
+  --viz-blue: #0a84ff;
+  --viz-red: #ff375f;
+  --viz-orange: #ff9f0a;
+
+  --accent: var(--viz-green);
   --accent-ink: #0a0c0b;
-  --accent-2: #6ee7b7;
-  --accent-3: #8fb33a;
-  --danger: #ff6b5e;
-  --warn: #ffc857;
+  --accent-2: var(--viz-cyan);
+  --accent-3: #5e8c00;
+  --danger: var(--viz-red);
+  --warn: var(--viz-orange);
 
   --r-control: 12px;
   --r-card: 20px;
@@ -34,7 +42,7 @@
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --shadow-card: inset 0 1px 0 rgb(255 255 255 / 0.04), 0 18px 40px -28px rgb(0 0 0 / 0.9);
-  --shadow-accent: 0 12px 28px -12px rgb(200 247 81 / 0.45);
+  --shadow-accent: 0 12px 28px -12px rgb(163 249 0 / 0.45);
 }
 
 /* ---------- base ---------- */
@@ -49,8 +57,8 @@ body {
   min-height: 100dvh;
   background: var(--bg);
   background-image:
-    radial-gradient(1100px 520px at 18% -12%, rgb(200 247 81 / 0.055), transparent 62%),
-    radial-gradient(900px 600px at 92% 0%, rgb(110 231 183 / 0.04), transparent 58%);
+    radial-gradient(1100px 520px at 18% -12%, rgb(163 249 0 / 0.055), transparent 62%),
+    radial-gradient(900px 600px at 92% 0%, rgb(100 210 255 / 0.04), transparent 58%);
   color: var(--fg);
   font-family: var(--font-text);
   font-size: 15px;
@@ -78,7 +86,7 @@ svg {
 }
 
 ::selection {
-  background: rgb(200 247 81 / 0.25);
+  background: rgb(163 249 0 / 0.25);
   color: var(--fg);
 }
 
@@ -117,8 +125,8 @@ svg {
   gap: 4px;
   padding: 3px 8px;
   border-radius: var(--r-pill);
-  background: rgb(110 231 183 / 0.12);
-  color: var(--accent-2);
+  background: rgb(163 249 0 / 0.12);
+  color: var(--viz-green);
   font-size: 12px;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
@@ -126,7 +134,7 @@ svg {
 }
 
 .delta.is-down {
-  background: rgb(255 107 94 / 0.12);
+  background: rgb(255 55 95 / 0.12);
   color: var(--danger);
 }
 
@@ -145,7 +153,7 @@ svg {
 }
 
 .chip--accent {
-  background: rgb(200 247 81 / 0.12);
+  background: rgb(163 249 0 / 0.12);
   color: var(--accent);
 }
 
@@ -263,7 +271,7 @@ svg {
 
 .card--link:hover {
   transform: translateY(-2px);
-  border-color: rgb(200 247 81 / 0.24);
+  border-color: rgb(163 249 0 / 0.24);
 }
 
 .card-head {
@@ -304,7 +312,7 @@ svg {
 }
 
 .bar--mint > span {
-  background: linear-gradient(90deg, #2f7d63, var(--accent-2));
+  background: linear-gradient(90deg, #2c6d8a, var(--accent-2));
 }
 
 .avatar {
@@ -319,7 +327,7 @@ svg {
   font-weight: 600;
   letter-spacing: 0.02em;
   color: #0a0c0b;
-  background: linear-gradient(140deg, #c8f751, #6ee7b7);
+  background: linear-gradient(140deg, var(--viz-green), var(--viz-cyan));
   flex: none;
 }
 
@@ -425,9 +433,9 @@ svg {
   width: 34px;
   height: 34px;
   border-radius: 11px;
-  background: linear-gradient(145deg, #d9ff6e, #a9e02c);
+  background: linear-gradient(145deg, #c4ff4d, #8fd400);
   color: #0a0c0b;
-  box-shadow: 0 6px 18px -8px rgb(200 247 81 / 0.7), inset 0 1px 0 rgb(255 255 255 / 0.5);
+  box-shadow: 0 6px 18px -8px rgb(163 249 0 / 0.7), inset 0 1px 0 rgb(255 255 255 / 0.5);
   flex: none;
 }
 
@@ -469,7 +477,7 @@ svg {
 }
 
 .nav-link.is-active {
-  background: rgb(200 247 81 / 0.1);
+  background: rgb(163 249 0 / 0.1);
   color: var(--accent);
 }
 
@@ -483,7 +491,7 @@ svg {
   height: 20px;
   border-radius: 0 3px 3px 0;
   background: var(--accent);
-  box-shadow: 0 0 14px rgb(200 247 81 / 0.6);
+  box-shadow: 0 0 14px rgb(163 249 0 / 0.6);
 }
 
 .nav-link .count {
@@ -506,16 +514,16 @@ svg {
   flex-direction: column;
   gap: 9px;
   padding: 13px 13px 12px;
-  border: 1px solid rgb(200 247 81 / 0.16);
+  border: 1px solid rgb(163 249 0 / 0.16);
   border-radius: 16px;
   background:
-    radial-gradient(120% 120% at 0% 0%, rgb(200 247 81 / 0.13), transparent 60%),
-    rgb(200 247 81 / 0.04);
+    radial-gradient(120% 120% at 0% 0%, rgb(163 249 0 / 0.13), transparent 60%),
+    rgb(163 249 0 / 0.04);
   transition: border-color 180ms var(--ease-out);
 }
 
 .streak-card:hover {
-  border-color: rgb(200 247 81 / 0.34);
+  border-color: rgb(163 249 0 / 0.34);
 }
 
 .streak-top {
@@ -541,7 +549,7 @@ svg {
 
 .streak-days i.is-on {
   background: var(--accent);
-  box-shadow: 0 0 10px rgb(200 247 81 / 0.45);
+  box-shadow: 0 0 10px rgb(163 249 0 / 0.45);
 }
 
 .streak-days i.is-now {
@@ -615,7 +623,7 @@ svg {
   height: 6px;
   border-radius: 50%;
   background: var(--accent);
-  box-shadow: 0 0 10px rgb(200 247 81 / 0.7);
+  box-shadow: 0 0 10px rgb(163 249 0 / 0.7);
 }
 
 .topbar-actions {
@@ -1022,7 +1030,7 @@ svg {
 
 .ach:hover {
   transform: translateY(-2px);
-  border-color: rgb(200 247 81 / 0.3);
+  border-color: rgb(163 249 0 / 0.3);
 }
 
 .ach-tile {
@@ -1031,7 +1039,7 @@ svg {
   width: 38px;
   height: 38px;
   border-radius: 12px;
-  background: rgb(200 247 81 / 0.12);
+  background: rgb(163 249 0 / 0.12);
   color: var(--accent);
 }
 
@@ -1080,10 +1088,10 @@ svg {
 }
 
 .podium-item--first {
-  border-color: rgb(200 247 81 / 0.35);
+  border-color: rgb(163 249 0 / 0.35);
   background:
-    radial-gradient(120% 100% at 50% 0%, rgb(200 247 81 / 0.1), transparent 65%),
-    rgb(200 247 81 / 0.03);
+    radial-gradient(120% 100% at 50% 0%, rgb(163 249 0 / 0.1), transparent 65%),
+    rgb(163 249 0 / 0.03);
   transform: translateY(-8px);
 }
 
@@ -1108,8 +1116,8 @@ svg {
 }
 
 .lb-row.is-me {
-  background: rgb(200 247 81 / 0.07);
-  border: 1px solid rgb(200 247 81 / 0.2);
+  background: rgb(163 249 0 / 0.07);
+  border: 1px solid rgb(163 249 0 / 0.2);
 }
 
 .lb-rank {
@@ -1167,7 +1175,7 @@ svg {
 
 .session-row:hover {
   transform: translateY(-2px);
-  border-color: rgb(200 247 81 / 0.24);
+  border-color: rgb(163 249 0 / 0.24);
 }
 
 .session-date {
@@ -1401,7 +1409,7 @@ svg {
 .input:focus {
   outline: none;
   border-color: var(--accent);
-  background-color: rgb(200 247 81 / 0.04);
+  background-color: rgb(163 249 0 / 0.04);
 }
 
 .input.is-invalid {
@@ -1525,8 +1533,8 @@ select.input option:disabled {
   padding: 44px;
   overflow: hidden;
   background:
-    radial-gradient(90% 70% at 20% 0%, rgb(200 247 81 / 0.16), transparent 60%),
-    radial-gradient(80% 80% at 100% 100%, rgb(110 231 183 / 0.12), transparent 55%),
+    radial-gradient(90% 70% at 20% 0%, rgb(163 249 0 / 0.16), transparent 60%),
+    radial-gradient(80% 80% at 100% 100%, rgb(100 210 255 / 0.12), transparent 55%),
     linear-gradient(160deg, #10160f, #0a0c0b);
   border-right: 1px solid var(--line);
 }

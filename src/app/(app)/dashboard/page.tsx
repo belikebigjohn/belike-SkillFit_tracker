@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { BadgeCheck, Flame, Layers, Lock, Medal, RefreshCw, Target, Trophy, Zap } from "lucide-react";
+import { BadgeCheck, Flame, Footprints, Layers, Lock, Medal, RefreshCw, Target, Trophy, Zap } from "lucide-react";
 
 import Sparkline from "@/components/charts/sparkline";
 import GoalRing from "@/components/charts/goal-ring";
@@ -144,7 +144,7 @@ export default function DashboardPage() {
             </span>
           </div>
           <div className="kpi-main">
-            <span className="num kpi-value">{formatNum(user.points)}</span>
+            <span className="num kpi-value" style={{ color: "var(--viz-green)" }}>{formatNum(user.points)}</span>
             <Sparkline values={sparklines.points} />
           </div>
           <div style={{ marginTop: 10, display: "flex", gap: 8, alignItems: "center" }}>
@@ -155,21 +155,20 @@ export default function DashboardPage() {
 
         <div className="kpi rise rise-2">
           <div className="kpi-top">
-            <span className="kpi-label">Серия</span>
+            <span className="kpi-label">Дистанция</span>
             <span className="kpi-icon">
-              <Flame size={14} />
+              <Footprints size={14} />
             </span>
           </div>
           <div className="kpi-main">
-            <span className="num kpi-value">
-              {user.streak}
-              <span className="unit">дней</span>
+            <span className="num kpi-value" style={{ color: "var(--viz-blue)" }}>
+              {formatNum(Math.round((week.runM / 1000) * 10) / 10)}
+              <span className="unit">км</span>
             </span>
-            <Sparkline values={sparklines.streak} color="var(--accent-2)" />
+            <Sparkline values={sparklines.runKm} color="var(--viz-blue)" />
           </div>
           <div style={{ marginTop: 10, display: "flex", gap: 8, alignItems: "center" }}>
-            <Delta value={week.streakDelta} suffix="" />
-            <span style={{ fontSize: 11.5, color: "var(--muted-2)" }}>к прошлой неделе</span>
+            <span style={{ fontSize: 11.5, color: "var(--muted-2)" }}>бег за неделю</span>
           </div>
         </div>
 
@@ -181,8 +180,8 @@ export default function DashboardPage() {
             </span>
           </div>
           <div className="kpi-main">
-            <span className="num kpi-value">{user.workouts}</span>
-            <Sparkline values={sparklines.workouts} />
+            <span className="num kpi-value" style={{ color: "var(--viz-red)" }}>{user.workouts}</span>
+            <Sparkline values={sparklines.workouts} color="var(--viz-red)" />
           </div>
           <div style={{ marginTop: 10, display: "flex", gap: 8, alignItems: "center" }}>
             <Delta value={week.workoutsDelta} />
@@ -198,11 +197,11 @@ export default function DashboardPage() {
             </span>
           </div>
           <div className="kpi-main">
-            <span className="num kpi-value">
+            <span className="num kpi-value" style={{ color: "var(--viz-purple)" }}>
               {formatNum(week.volumeKg)}
               <span className="unit">кг</span>
             </span>
-            <Sparkline values={sparklines.volume} color="var(--accent-2)" />
+            <Sparkline values={sparklines.volume} color="var(--viz-purple)" />
           </div>
           <div style={{ marginTop: 10, display: "flex", gap: 8, alignItems: "center" }}>
             <Delta value={week.deltaPct} suffix="%" />
@@ -220,7 +219,6 @@ export default function DashboardPage() {
               <h2 className="card-title">Цель недели</h2>
               <p className="card-sub">{formatNum(week.targetKg)} кг объёма</p>
             </div>
-            <span className="chip chip--accent">{goalPct}%</span>
           </div>
           <div className="ring-wrap">
             <GoalRing

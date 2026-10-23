@@ -32,10 +32,11 @@ export interface WeekSummary {
   minutes: number;
   deltaPct: number;
   exercises: number;
+  /** running distance in metres for the current week */
+  runM: number;
   /** change vs the previous week — used by dashboard KPI footers */
   pointsDelta?: number;
   workoutsDelta?: number;
-  streakDelta?: number;
 }
 
 export interface ChartSeries {

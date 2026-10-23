@@ -34,14 +34,14 @@ interface SeedUser {
 }
 
 const SEED_USERS: SeedUser[] = [
-  { email: "demo@forma.ru", name: "Максим Орлов", goal: "Набор массы", from: "#c8f751", to: "#6ee7b7", weekly: 3.5, intensity: 1, weeks: 52, demo: true },
-  { email: "maria@forma.ru", name: "Мария Ветрова", goal: "Сила", from: "#d9ff6e", to: "#6ee7b7", weekly: 4, intensity: 1.1, weeks: 16 },
-  { email: "artem@forma.ru", name: "Артём Соколов", goal: "Набор массы", from: "#8fb33a", to: "#4e7a5e", weekly: 4, intensity: 1.04, weeks: 16 },
-  { email: "dana@forma.ru", name: "Дана Гареева", goal: "Выносливость", from: "#6ee7b7", to: "#2f7d63", weekly: 3.5, intensity: 0.97, weeks: 16 },
-  { email: "ilya@forma.ru", name: "Илья Ковалёв", goal: "Здоровье", from: "#d9e8c7", to: "#8fb33a", weekly: 3, intensity: 0.9, weeks: 16 },
-  { email: "sofya@forma.ru", name: "Софья Лебедева", goal: "Похудение", from: "#ffc857", to: "#c8f751", weekly: 3, intensity: 0.84, weeks: 16 },
+  { email: "demo@forma.ru", name: "Максим Орлов", goal: "Набор массы", from: "#a3f900", to: "#64d2ff", weekly: 3.5, intensity: 1, weeks: 52, demo: true },
+  { email: "maria@forma.ru", name: "Мария Ветрова", goal: "Сила", from: "#bf5af2", to: "#0a84ff", weekly: 4, intensity: 1.1, weeks: 16 },
+  { email: "artem@forma.ru", name: "Артём Соколов", goal: "Набор массы", from: "#0a84ff", to: "#64d2ff", weekly: 4, intensity: 1.04, weeks: 16 },
+  { email: "dana@forma.ru", name: "Дана Гареева", goal: "Выносливость", from: "#64d2ff", to: "#a3f900", weekly: 3.5, intensity: 0.97, weeks: 16 },
+  { email: "ilya@forma.ru", name: "Илья Ковалёв", goal: "Здоровье", from: "#ff9f0a", to: "#bf5af2", weekly: 3, intensity: 0.9, weeks: 16 },
+  { email: "sofya@forma.ru", name: "Софья Лебедева", goal: "Похудение", from: "#ff375f", to: "#ff9f0a", weekly: 3, intensity: 0.84, weeks: 16 },
   { email: "timur@forma.ru", name: "Тимур Хайруллин", goal: "Сила", from: "#9aa7a0", to: "#5c6b62", weekly: 2.5, intensity: 0.9, weeks: 16 },
-  { email: "nika@forma.ru", name: "Ника Соловьёва", goal: "Выносливость", from: "#a9e02c", to: "#3f6b58", weekly: 2, intensity: 0.8, weeks: 16 },
+  { email: "nika@forma.ru", name: "Ника Соловьёва", goal: "Выносливость", from: "#bf5af2", to: "#ff375f", weekly: 2, intensity: 0.8, weeks: 16 },
 ];
 
 interface SeedExercise {

@@ -9,8 +9,8 @@ export const users = sqliteTable("users", {
   passwordHash: text("password_hash").notNull(),
   name: text("name").notNull(),
   goal: text("goal").notNull().default("Здоровье"),
-  avatarFrom: text("avatar_from").notNull().default("#c8f751"),
-  avatarTo: text("avatar_to").notNull().default("#6ee7b7"),
+  avatarFrom: text("avatar_from").notNull().default("#a3f900"),
+  avatarTo: text("avatar_to").notNull().default("#64d2ff"),
   createdAt: text("created_at").notNull(),
 });
 

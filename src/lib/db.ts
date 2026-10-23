@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS users (
   password_hash TEXT NOT NULL,
   name TEXT NOT NULL,
   goal TEXT NOT NULL DEFAULT 'Здоровье',
-  avatar_from TEXT NOT NULL DEFAULT '#c8f751',
-  avatar_to TEXT NOT NULL DEFAULT '#6ee7b7',
+  avatar_from TEXT NOT NULL DEFAULT '#a3f900',
+  avatar_to TEXT NOT NULL DEFAULT '#64d2ff',
   created_at TEXT NOT NULL
 );
 CREATE TABLE IF NOT EXISTS exercises (

@@ -85,7 +85,7 @@ export default function VolumeChart({
                   ? "var(--muted)"
                   : growth < 0
                     ? "var(--danger)"
-                    : "var(--accent-2)",
+                    : "var(--viz-green)",
             }}
             title={growth === null ? "Нет базы для сравнения: в начале периода объём был нулевым" : undefined}
           >
